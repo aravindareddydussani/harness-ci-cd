@@ -62,6 +62,8 @@ pipeline:
                       planType: Apply
                   timeout: 10m
         tags: {}
+        delegateSelectors:
+          - helm-delegate
     - stage:
         name: buildtfplan
         identifier: buildtfplan
