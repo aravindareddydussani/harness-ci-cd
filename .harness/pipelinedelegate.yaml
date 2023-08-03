@@ -36,3 +36,51 @@ pipeline:
                   spec:
                     shell: Sh
                     command: echo "Hello World"
+    - stage:
+        name: tfplan
+        identifier: tfplan
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: TerraformCloudRun
+                  name: TerraformCloudRun_1
+                  identifier: TerraformCloudRun_1
+                  spec:
+                    runType: Plan
+                    runMessage: ran from Harness
+                    spec:
+                      organization: lbg-cloud-platform
+                      workspace: ws-Jyh6kwTq3HCCXZ37
+                      variables: []
+                      discardPendingRuns: true
+                      targets: []
+                      connectorRef: tfcloudpersonalaccount
+                      provisionerIdentifier: tfplan1
+                      planType: Apply
+                  timeout: 10m
+        tags: {}
+    - stage:
+        name: buildtfplan
+        identifier: buildtfplan
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: terraform plan
