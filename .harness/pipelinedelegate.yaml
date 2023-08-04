@@ -71,7 +71,7 @@ pipeline:
                     runType: Apply
                     spec:
                       provisionerIdentifier: testdelegateprovisioner
-                  timeout: 10m
+                  timeout: 2h
         tags: {}
         delegateSelectors:
           - helm-delegate
