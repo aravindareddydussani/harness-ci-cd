@@ -58,8 +58,31 @@ pipeline:
                       discardPendingRuns: true
                       targets: []
                       connectorRef: tfcloudpersonalaccount
-                      provisionerIdentifier: tfplan1
+                      provisionerIdentifier: testdelegateprovisioner
                       planType: Apply
+                    delegateSelectors:
+                      - helm-delegate
+                  timeout: 10m
+              - step:
+                  type: TerraformPlan
+                  name: TerraformPlan_1
+                  identifier: TerraformPlan_1
+                  spec:
+                    provisionerIdentifier: testdelegateprovisioner
+                    configuration:
+                      command: Apply
+                      configFiles:
+                        store:
+                          spec:
+                            connectorRef: delegategitpersonal
+                            repoName: harness-ci-cd
+                            gitFetchType: Branch
+                            branch: feature/csdaai-600-gce-using-harness-cicd
+                            folderPath: ./
+                          type: Github
+                      secretManagerRef: org.harnessSecretManager
+                    delegateSelectors:
+                      - helm-delegate
                   timeout: 10m
         tags: {}
         delegateSelectors:
